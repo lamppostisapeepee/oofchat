@@ -24,7 +24,7 @@ function makeChatNotific(msg) {
 
 socket.on('chat message', msg => {
     const date = moment().format("(hh:mm:ss)");
-    const content = msg.content.split("@"+nickname).join(`<strong class="msgMention">@${nickname}</strong>`);
+    let content = msg.content.split("@"+nickname).join(`<strong class="msgMention">@${nickname}</strong>`);
     if (msg.author == nickname) content = msg.content;
     $(".messages").append(`<p class="message message${msgStyle?"A":"B"}">${date} <strong>${msg.author} </strong>${content}</p>`);
     msgStyle = !msgStyle;
