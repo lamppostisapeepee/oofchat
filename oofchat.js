@@ -33,7 +33,7 @@ io.on('connection', async socket => {
             socket.emit("disconnect reason", "bad nickname");
             socket.disconnect(true);
         }
-        socket.nickName = nickname;
+        socket.nickname = nickname;
 
         socket.on('chat message', msg => {
             if (socket.ratelimits.message != 0) {
