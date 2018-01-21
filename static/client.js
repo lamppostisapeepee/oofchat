@@ -21,7 +21,7 @@ socket.on('disconnect reason', reason => {
 
 
 // Message sending
-$("#msgForm").submit(event => {
-    console.log(event); // debug
+$("#msgForm").submit(e => {
+    console.log(e); // debug
     e.preventDefault();
 });
