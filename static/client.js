@@ -60,7 +60,7 @@ $("#nickForm").submit(e => {
     e.preventDefault();
     const nick = $("#nickContent").val();
     setNickname(nick);
-    $('.nickname-choose').animate({'margin-top': '-100px'}, 300);
+    $('.nickname-choose').animate({'margin-top': `-${window.outerWidth+10}px`}, 300);
     $(".nicknameDisplay").val(nick);
 });
 
