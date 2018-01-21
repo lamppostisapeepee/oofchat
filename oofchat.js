@@ -13,11 +13,15 @@ http.listen(port, () => {
 });
 io.on('connection', async socket => {
     console.log("a user connected from somewhere in the universe.");
-    setInterval(() => {
+    socket.nickInterval = setInterval(() => {
         if (socket.nickname) return;
         socket.emit("disconnect reason", "idle no nickname");
         socket.disconnect(true); // He was idle for more then 5 min without choosing a nickname! 
     },5 * 60 * 1000);
+    socket.on('disconnect', () => {
+        if (nickname) return;
+        clearInterval(socket.nickInterval);
+    });
     socket.on('nickname', nickname => {
         if (typeof nickname != "string") {
             socket.emit("disconnect reason", "bad nickname");
@@ -28,6 +32,10 @@ io.on('connection', async socket => {
         socket.on('chat message', msg => {
             if (typeof msg != "string") {
                 socket.emit("disconnect reason", "bad message");
+                socket.disconnect(true);
+            }
+            if (msg.length > 200) {
+                socket.emit("disconnect reason", "message too big");
                 socket.disconnect(true);
             }
             io.emit("chat message", {author: socket.nickname, content: msg});
