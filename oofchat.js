@@ -50,7 +50,7 @@ io.on('connection', async socket => {
                 socket.emit("disconnect reason", "message too big");
                 socket.disconnect(true);
             }
-            socket.ratelimits.message = 1000 * 0.3; // can send message every 0.3 seconds
+            socket.ratelimits.message = 1000 * 0.1; // msg ratelimit
             /**
              * @type {String}
              */

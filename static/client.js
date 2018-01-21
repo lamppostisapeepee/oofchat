@@ -60,7 +60,7 @@ $("#nickForm").submit(e => {
     e.preventDefault();
     const nick = $("#nickContent").val();
     setNickname(nick);
-    $(".nickname-display").val(`Logged in as ${nickname}`);
+    document.querySelector(".nickname-display").innerHTML = `Logged in as ${nickname}`; 
     $('.nickname-choose').animate({'margin-top': `-${window.outerWidth+10}px`}, 300);
 });
 
