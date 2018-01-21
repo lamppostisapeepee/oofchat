@@ -1,0 +1,19 @@
+.title {
+    text-align: center;
+}
+
+.messageA {
+    background-color: lightgray;
+}
+
+.messageB {
+    background-color: white;
+}
+
+.message {
+    padding: 1.5%;
+}
+
+.messages {
+    overflow: auto;
+}
