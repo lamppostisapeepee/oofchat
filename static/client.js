@@ -12,7 +12,8 @@ function setNickname(nick) {
     socket.emit("nickname", nick);
     nickname = nick
 }
-socket.on('disconnect', () => {
-    document.write("You have been kicked.");
+socket.on('disconnect reason', reason => {
+    socket.on('disconnect', () => {
+        document.write("Disconnected, reason: "+reason);
+    });
 });
-setNickname("Dank af Memer");
