@@ -51,7 +51,12 @@ io.on('connection', async socket => {
                 socket.disconnect(true);
             }
             socket.ratelimits.message = 1000 * 0.3; // can send message every 0.3 seconds
-            io.emit("chat message", {author: socket.nickname, content: marked(escape(msg))});
+            /**
+             * @type {String}
+             */
+            let content = marked(escape(msg));
+            content = content.slice(3, content.length-4);
+            io.emit("chat message", {author: socket.nickname, content});
         });
     });
 });
