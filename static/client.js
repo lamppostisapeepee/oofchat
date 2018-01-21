@@ -24,7 +24,7 @@ function makeChatNotific(msg) {
 
 socket.on('chat message', msg => {
     const date = moment().format("(hh:mm:ss)");
-    $(".messages").append(`<p class="message message${msgStyle?"A":"B"}">${date} <strong>${msg.author} </strong>${msg.content}</p>`);
+    $(".messages").append(`<p class="message message${msgStyle?"A":"B"}">${date} <strong>${msg.author} </strong>${msg.content.split("@"+nickname).join(`<strong class="msgMention">@${nickname}</strong>`)}</p>`);
     msgStyle = !msgStyle;
     if (msg.content.includes("@"+nickname) && msg.author != nickname) {
         if (!("Notification" in window)) return; // browser does not support notific
