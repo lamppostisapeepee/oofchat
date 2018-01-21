@@ -17,3 +17,10 @@ socket.on('disconnect reason', reason => {
         document.write("Disconnected, reason: "+reason);
     });
 });
+
+
+
+// Message sending
+$("#msgForm").submit(event => {
+    console.log(event); // debug
+});
