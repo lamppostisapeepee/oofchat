@@ -20,11 +20,10 @@ socket.on('disconnect reason', reason => {
 
 
 $.ready(() => {
-    
+
 // Message sending
 $("#msgForm").submit(e => {
-    console.log(e); // debug
-    e.preventDefault();
+    return false;
 });
 
 });
