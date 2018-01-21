@@ -29,8 +29,11 @@ $(document).ready(() => {
 
 // Message sending
 $("#msgForm").submit(e => {
-    socket.emit("chat message", $("#msgContent").val());
     e.preventDefault();
+    const content = $("#msgContent").val();
+    if (content.split(" ").join("") == "") return;
+    socket.emit("chat message", content);
+    $("#msgContent").val("");
 });
 
 });
