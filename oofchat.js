@@ -55,7 +55,7 @@ io.on('connection', async socket => {
              * @type {String}
              */
             let content = marked(escape(msg));
-            content = content.slice(3, content.length-4);
+            content = content.slice(3, content.length-5);
             io.emit("chat message", {author: socket.nickname, content});
         });
     });
