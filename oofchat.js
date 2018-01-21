@@ -13,13 +13,19 @@ http.listen(port, () => {
 });
 io.on('connection', async socket => {
     console.log("a user connected from somewhere in the universe.");
+    socket.ratelimits = {message: 0};
+    socket.ratelimitInterval = setInterval(() => {
+        for (let ratelimit in socket.ratelimits) {
+            if (socket.ratelimits[ratelimit] > 0) socket.ratelimits[ratelimit]--;
+        }
+    }, 1);
     socket.nickInterval = setInterval(() => {
         if (socket.nickname) return;
         socket.emit("disconnect reason", "idle no nickname");
         socket.disconnect(true); // He was idle for more then 5 min without choosing a nickname! 
     },5 * 60 * 1000);
     socket.on('disconnect', () => {
-        if (nickname) return;
+        if (socket.nickname) return;
         clearInterval(socket.nickInterval);
     });
     socket.on('nickname', nickname => {
@@ -30,6 +36,9 @@ io.on('connection', async socket => {
         socket.nickName = nickname;
 
         socket.on('chat message', msg => {
+            if (socket.ratelimits.message != 0) {
+
+            }
             if (typeof msg != "string") {
                 socket.emit("disconnect reason", "bad message");
                 socket.disconnect(true);
@@ -38,6 +47,7 @@ io.on('connection', async socket => {
                 socket.emit("disconnect reason", "message too big");
                 socket.disconnect(true);
             }
+            socket.ratelimits.message = 1000 * 0.3; // can send message every 0.3 seconds
             io.emit("chat message", {author: socket.nickname, content: msg});
         });
     });
