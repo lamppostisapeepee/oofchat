@@ -21,3 +21,17 @@
 .sendMessage {
     text-align: center;
 }
+
+.nickname-choose {
+    background-color: black;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    color: white;
+}
+
+.nickname-choose-hide {
+    display: none;
+}
