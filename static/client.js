@@ -18,19 +18,22 @@ socket.on('disconnect reason', reason => {
         document.write("Disconnected, reason: "+reason);
     });
 });
+function makeChatNotific(msg) {
+    new Notification(`${msg.author} oofed you!`, {body: msg.contentNoMarkdown, icon: "oof.png"});
+}
 
 socket.on('chat message', msg => {
     const date = moment().format("(hh:mm:ss)");
     $(".messages").append(`<p class="message message${msgStyle?"A":"B"}">${date} <strong>${msg.author} </strong>${msg.content}</p>`);
     msgStyle = !msgStyle;
-    if (msg.content.includes("@"+nickname)) {
+    if (msg.content.includes("@"+nickname) && msg.author != nickname) {
         if (!("Notification" in window)) return; // browser does not support notific
         if (Notification.permission == "granted") {
-            new Notification(`${msg.author}: ${msg.contentNoMarkdown}`);
+            makeChatNotific(msg);
         } else if (Notification.permission != "denied") {
             Notification.requestPermission(permission => {
                 if (permission == "granted") {
-                    new Notification(`${msg.author}: ${msg.contentNoMarkdown}`);
+                    makeChatNotific(msg);
                 }
             });
         }
