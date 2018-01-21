@@ -5,6 +5,7 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 const port = process.env.PORT || 3004;
+let nicknames = [];
 /**
  * @typedef {Object} Message
  * @property {String} content Message content
@@ -13,6 +14,7 @@ const port = process.env.PORT || 3004;
 http.listen(port, () => {
     console.log("Listening on port " + port);
 });
+
 io.on('connection', async socket => {
     console.log("a user connected from somewhere in the universe.");
     socket.ratelimits = {message: 0};
@@ -27,16 +29,28 @@ io.on('connection', async socket => {
         socket.disconnect(true); // He was idle for more then 5 min without choosing a nickname! 
     },5 * 60 * 1000);
     socket.on('disconnect', () => {
-        if (socket.nickname) return;
-        clearInterval(socket.nickInterval);
+        if (socket.nickname) {
+            nicknames.splice(nicknames.indexOf(nickname), 1);
+        } else {
+            clearInterval(socket.nickInterval);
+        }
     });
     socket.on('nickname', nickname => {
         if (typeof nickname != "string") {
             socket.emit("disconnect reason", "bad nickname");
             socket.disconnect(true);
+        } 
+        if (nickname.split(" ") == "") {
+            socket.emit("disconnect reason", "empty nickname");
+            socket.disconnect(true);
+        }
+        if (nicknames.indexOf(nickname) != -1) {
+            socket.emit("disconnect reason", "nickname already taken");
+            socket.disconnect(true);
         }
         socket.nickname = nickname;
-
+        nicknames.push(nickname);
+        
         socket.on('chat message', msg => {
             if (socket.ratelimits.message != 0) {
                 socket.emit("disconnect reason", "ratelimited[messages]");
