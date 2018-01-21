@@ -23,7 +23,7 @@ $(document).ready(() => {
 
 // Message sending
 $("#msgForm").submit(e => {
-    return false;
+    e.preventDefault();
 });
 
 });
