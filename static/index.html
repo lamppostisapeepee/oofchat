@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <!-- Favicon, just in case it doesn't auto-load. -->
+        <link rel='shortcut icon' type='image/x-icon' href='/favicon.ico' />
         <!-- All scripts for the site. -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -16,7 +18,9 @@
     <body>
         <!-- Nickname Choose Screen -->
         <div class="nickname-choose">
-            Nickname
+            <div class="title">
+                <h3>oofchat - Choose a nickname</h3>
+            </div>
             <form id="nickForm">
                     <input type="text" id="nickContent" maxlength="200" autocomplete="off">
                     <button class="btn waves-effect waves-light" type="submit">OK</button>

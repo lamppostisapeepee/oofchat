@@ -46,7 +46,7 @@ socket.on('chat message', msg => {
 });
 
 $(document).ready(() => {
-
+$("#msgSend").toggle(false);
 // Message sending
 $("#msgForm").submit(e => {
     e.preventDefault();
@@ -62,6 +62,7 @@ $("#nickForm").submit(e => {
     setNickname(nick);
     document.querySelector(".nickname-display").innerHTML = `Logged in as ${nickname}`; 
     $('.nickname-choose').animate({'margin-top': `-${window.outerWidth+10}px`}, 300);
+    $("#msgSend").toggle(true); // show send msg button
 });
 
 });
