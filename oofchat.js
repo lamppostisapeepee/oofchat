@@ -37,7 +37,8 @@ io.on('connection', async socket => {
 
         socket.on('chat message', msg => {
             if (socket.ratelimits.message != 0) {
-
+                socket.emit("disconnect reason", "ratelimited[messages]");
+                socket.disconnect(true);
             }
             if (typeof msg != "string") {
                 socket.emit("disconnect reason", "bad message");
