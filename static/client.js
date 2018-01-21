@@ -19,7 +19,7 @@ socket.on('disconnect reason', reason => {
 });
 
 
-$.ready(() => {
+$(document).ready(() => {
 
 // Message sending
 $("#msgForm").submit(e => {
