@@ -1,4 +1,6 @@
 const express = require("express");
+const marked = require("marked");
+const escape = require('escape-html');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
@@ -49,7 +51,7 @@ io.on('connection', async socket => {
                 socket.disconnect(true);
             }
             socket.ratelimits.message = 1000 * 0.3; // can send message every 0.3 seconds
-            io.emit("chat message", {author: socket.nickname, content: msg});
+            io.emit("chat message", {author: socket.nickname, content: marked(escape(msg))});
         });
     });
 });
