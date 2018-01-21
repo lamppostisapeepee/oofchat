@@ -17,3 +17,7 @@
 .messages {
     overflow: auto;
 }
+
+.sendMessage {
+    text-align: center;
+}
