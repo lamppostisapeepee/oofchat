@@ -4,6 +4,7 @@ var socket = io();
  */
 var nickname;
 var msgStyle = false;
+var ratelimits;
 /**
  * Set self nickname, can only be used once per session.
  * @param {String} nick 
@@ -21,7 +22,7 @@ socket.on('disconnect reason', reason => {
 function makeChatNotific(msg) {
     new Notification(`${msg.author} oofed you!`, {body: msg.contentNoMarkdown, icon: "oof.png"});
 }
-
+socket.on("ratelimit info", info => ratelimits = info);
 socket.on('chat message', msg => {
     const date = moment().format("(hh:mm:ss)");
     let content = msg.content.split("@"+nickname).join(`<strong class="msgMention">@${nickname}</strong>`);
@@ -41,7 +42,12 @@ socket.on('chat message', msg => {
         }
     }
 });
-
+let msgQueue = [];
+let msgRatelimit = 0;
+while (msgRatelimit == 0) {
+    socket.emit("chat message", msgQueue.shift());
+    msgRatelimit = ratelimits.message;
+}
 $(document).ready(() => {
 $("#msgSend").toggle(false);
 // Message sending
@@ -49,7 +55,7 @@ $("#msgForm").submit(e => {
     e.preventDefault();
     const content = $("#msgContent").val();
     if (content.split(" ").join("") == "") return;
-    socket.emit("chat message", content);
+    msgQueue.push(content);
     $("#msgContent").val("");
 });
 
