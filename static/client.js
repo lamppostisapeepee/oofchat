@@ -48,7 +48,10 @@ while (msgQueue.length != 0 && msgRatelimit == 0) {
     socket.emit("chat message", msgQueue.shift());
     msgRatelimit = ratelimits.message;
 }
-setInterval(() => msgRatelimit--, 1);
+setInterval(() => {
+    if (msgRatelimit < 1) return;
+    msgRatelimit--;
+}, 1);
 $(document).ready(() => {
 $("#msgSend").toggle(false);
 // Message sending
