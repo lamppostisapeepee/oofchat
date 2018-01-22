@@ -45,7 +45,7 @@ socket.on('chat message', msg => {
 let msgQueue = [];
 let msgRatelimit = 0;
 function msgqA() {
-    if (msg.queue.length != 0) return;
+    if (msgQueue.length != 0) return;
     socket.emit("chat message", msgQueue.shift());
     msgRatelimit = ratelimits.message;
 }
