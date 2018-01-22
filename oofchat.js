@@ -32,7 +32,7 @@ io.on('connection', async socket => {
     },5 * 60 * 1000);
     socket.on('disconnect', () => {
         if (socket.nickname) {
-            nicknames.splice(nicknames.indexOf(nickname), 1);
+            nicknames.splice(nicknames.indexOf(socket.nickname), 1);
         } else {
             clearInterval(socket.nickInterval);
         }
