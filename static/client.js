@@ -4,7 +4,7 @@ var socket = io();
  */
 var nickname;
 var msgStyle = false;
-var ratelimits;
+var ratelimits = {message: 0};
 /**
  * Set self nickname, can only be used once per session.
  * @param {String} nick 
@@ -22,7 +22,7 @@ socket.on('disconnect reason', reason => {
 function makeChatNotific(msg) {
     new Notification(`${msg.author} oofed you!`, {body: msg.contentNoMarkdown, icon: "oof.png"});
 }
-socket.on("ratelimit info", info => ratelimits = info);
+socket.on("ratelimit info", info => ratelimits.message = info.message);
 socket.on('chat message', msg => {
     const date = moment().format("(hh:mm:ss)");
     let content = msg.content.split("@"+nickname).join(`<strong class="msgMention">@${nickname}</strong>`);
