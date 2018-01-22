@@ -83,7 +83,7 @@ io.on('connection', async socket => {
                 let em = emoji.lib[v.slice(1, v.length-2)]
                 if (v[0] != ":" || v[v.length-2] != ":" || !em) return v;
                 return em.char;
-            }).join(""));
+            }).join(" "));
             content = content.slice(3, content.length-5);
             io.emit("chat message", {author: socket.nickname, content, contentNoMarkdown: escape(msg)});
             console.log(`[CHAT] ${socket.nickname}: ${content}`);
