@@ -42,6 +42,7 @@ socket.on('chat message', msg => {
     }
     $(".messages").append(`<p class="message message${msgStyle?"A":"B"}">${date} <strong>${msg.displayAuthor} </strong>${content}</p>`);
     msgStyle = !msgStyle;
+    $("html, body").animate({ scrollTop: $(document).height() }, 1000);
     if (msg.content.includes("@"+nickname) && msg.author != nickname) {
         if (!("Notification" in window)) return; // browser does not support notific
         if (Notification.permission == "granted") {
