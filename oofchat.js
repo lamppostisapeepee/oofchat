@@ -4,7 +4,7 @@ const escape = require('escape-html');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-const port = process.env.PORT || 3004;
+const port = process.env.PORT || 80;
 let nicknames = [];
 const ratelimits = {message:0.25*1000}
 /**
