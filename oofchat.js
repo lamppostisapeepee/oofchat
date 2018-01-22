@@ -1,6 +1,7 @@
 const express = require("express");
 const marked = require("marked");
 const escape = require('escape-html');
+const emoji = require("emoji-name-map");
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
@@ -78,7 +79,7 @@ io.on('connection', async socket => {
             /**
              * @type {String}
              */
-            let content = marked(escape(msg));
+            let content = marked(escape(msg).split(new RegExp(/:[a-z-_]+:/giu)).map(emoji.get).join(""));
             content = content.slice(3, content.length-5);
             io.emit("chat message", {author: socket.nickname, content, contentNoMarkdown: escape(msg)});
             console.log(`[CHAT] ${socket.nickname}: ${content}`);

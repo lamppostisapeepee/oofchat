@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/jellz/oofchat#readme",
   "dependencies": {
+    "emoji-name-map": "^1.2.7",
     "escape-html": "^1.0.3",
     "express": "^4.16.2",
     "marked": "^0.3.12",
