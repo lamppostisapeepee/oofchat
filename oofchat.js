@@ -59,7 +59,7 @@ io.on('connection', async socket => {
                 socket.disconnect(true);
             }
             socket.typing = typing;
-            if (typing) io.emit("chat message", {author: "<u>System</u>", content: `${socket.nickname} is typing...`});
+            if (typing) io.emit("chat message", {author: "<u style=\"color:red;\">System</u>", content: `${socket.nickname} is typing...`});
         });
         socket.on('chat message', msg => {
             if (socket.ratelimits.message != 0) {
