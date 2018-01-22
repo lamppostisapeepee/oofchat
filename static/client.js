@@ -6,6 +6,7 @@ var nickname;
 var msgStyle = false;
 var typingms = 0;
 var ratelimits = {message: 0};
+var colourConfig = require('../colours.json');
 /**
  * Set self nickname, can only be used once per session.
  * @param {String} nick 
@@ -28,8 +29,8 @@ socket.on('chat message', msg => {
     const date = moment().format("(hh:mm:ss)");
     let content = msg.content.split("@"+nickname).join(`<strong class="msgMention">@${nickname}</strong>`);
     if (msg.author == nickname) content = msg.content;
-    if (nickname.toLowerCase() == 'lucas') {
-        msg.displayAuthor = `<span style="color:#33ccff;">${nickname}</span>`;
+    if (colourConfig.hasOwnProperty(nickname.toLowerCase())) {
+        msg.displayAuthor = `<span style="color:${colourConfig[nickname.toLowerCase()]};">${nickname}</span>`;
     } else {
         msg.displayAuthor = nickname;
     }
