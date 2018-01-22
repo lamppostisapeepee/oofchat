@@ -44,13 +44,12 @@ socket.on('chat message', msg => {
 });
 let msgQueue = [];
 let msgRatelimit = 0;
-while (msgQueue.length != 0 && msgRatelimit == 0) {
-    socket.emit("chat message", msgQueue.shift());
-    msgRatelimit = ratelimits.message;
-}
 setInterval(() => {
     if (msgRatelimit < 1) return;
     msgRatelimit--;
+    if (!(msgQueue.length != 0 && msgRatelimit == 0)) return;
+    socket.emit("chat message", msgQueue.shift());
+    msgRatelimit = ratelimits.message;
 }, 1);
 $(document).ready(() => {
 $("#msgSend").toggle(false);
