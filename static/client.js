@@ -13,7 +13,7 @@ var ratelimits = {message: 0};
 function setNickname(nick) {
     if (nickname) throw new Error("Nickname can only be set once!");
     socket.emit("nickname", nick);
-    nickname = nick
+    nickname = nick;
 }
 socket.on('disconnect reason', reason => {
     socket.on('disconnect', () => {
@@ -28,7 +28,12 @@ socket.on('chat message', msg => {
     const date = moment().format("(hh:mm:ss)");
     let content = msg.content.split("@"+nickname).join(`<strong class="msgMention">@${nickname}</strong>`);
     if (msg.author == nickname) content = msg.content;
-    $(".messages").append(`<p class="message message${msgStyle?"A":"B"}">${date} <strong>${msg.author} </strong>${content}</p>`);
+    if (msg.author.toLowerCase() == 'Lucas') {
+        msg.displayAuthor = `<span style="color:#33ccff;">${msg.author}</span>`;
+    } else {
+        msg.displayAuthor = msg.author;
+    }
+    $(".messages").append(`<p class="message message${msgStyle?"A":"B"}">${date} <strong>${msg.displayAuthor} </strong>${content}</p>`);
     msgStyle = !msgStyle;
     if (msg.content.includes("@"+nickname) && msg.author != nickname) {
         if (!("Notification" in window)) return; // browser does not support notific
