@@ -28,9 +28,8 @@ socket.on('chat message', msg => {
     const date = moment().format("(hh:mm:ss)");
     let content = msg.content.split("@"+nickname).join(`<strong class="msgMention">@${nickname}</strong>`);
     if (msg.author == nickname) content = msg.content;
-    if (nickname.toLowerCase() == 'Lucas') {
+    if (nickname.toLowerCase() == 'lucas') {
         msg.displayAuthor = `<span style="color:#33ccff;">${nickname}</span>`;
-        console.log('lucas sent a msg');
     } else {
         msg.displayAuthor = nickname;
     }
