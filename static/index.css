@@ -14,8 +14,8 @@
     padding: 1%;
 }
 
-.messages {
-    overflow: auto;
+html, body {
+    overflow: hidden;
 }
 
 .sendMessage {
