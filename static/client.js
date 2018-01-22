@@ -6,7 +6,7 @@ var nickname;
 var msgStyle = false;
 var typingms = 0;
 var ratelimits = {message: 0};
-var colourConfig = require('../colours.json');
+var colourConfig = require('./colours.json');
 /**
  * Set self nickname, can only be used once per session.
  * @param {String} nick 
