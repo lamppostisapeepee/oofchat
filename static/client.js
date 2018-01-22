@@ -45,10 +45,11 @@ socket.on('chat message', msg => {
 let msgQueue = [];
 let msgRatelimit = 0;
 function msgqA() {
-    if (msgQueue.length == 0) return;
+    if (msgQueue.length == 0 || msgRatelimit != 0) return;
     socket.emit("chat message", msgQueue.shift());
     msgRatelimit = ratelimits.message;
 }
+setInterval(() => msgRatelimit--, 1);
 $(document).ready(() => {
 $("#msgSend").toggle(false);
 // Message sending

@@ -6,7 +6,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 const port = process.env.PORT || 3004;
 let nicknames = [];
-const ratelimits = {message:0.25}
+const ratelimits = {message:0.25*1000}
 /**
  * @typedef {Object} Message
  * @property {String} content Message content
@@ -66,7 +66,7 @@ io.on('connection', async socket => {
                 socket.emit("disconnect reason", "message too big");
                 socket.disconnect(true);
             }
-            socket.ratelimits.message = 1000 * ratelimits.message; // msg ratelimit
+            socket.ratelimits.message = ratelimits.message; // msg ratelimit
             /**
              * @type {String}
              */
