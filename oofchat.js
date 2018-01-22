@@ -4,7 +4,7 @@ const escape = require('escape-html');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-const port = process.env.PORT || 3004;
+const port = process.env.PORT || 80;
 let nicknames = [];
 const ratelimits = {message:0.25*1000}
 /**
@@ -81,6 +81,7 @@ io.on('connection', async socket => {
             let content = marked(escape(msg));
             content = content.slice(3, content.length-5);
             io.emit("chat message", {author: socket.nickname, content, contentNoMarkdown: escape(msg)});
+            console.log(`[CHAT] ${socket.nickname}: ${content}`);
         });
     });
 });
