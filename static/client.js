@@ -4,6 +4,7 @@ var socket = io();
  */
 var nickname;
 var msgStyle = false;
+var typingms = 0;
 var ratelimits = {message: 0};
 /**
  * Set self nickname, can only be used once per session.
@@ -51,6 +52,18 @@ setInterval(() => {
         msgRatelimit = ratelimits.message;
     }
 }, 1);
+
+setInterval(() => {
+    if (typingms < 1) return;
+    typingms--;
+    if (typingms == 0) {
+        socket.emit("typing", isTyping());
+    }
+}, 1);
+
+function isTyping() {
+    return typingms != 0
+}
 $(document).ready(() => {
 $("#msgSend").toggle(false);
 // Message sending
@@ -69,6 +82,15 @@ $("#nickForm").submit(e => {
     document.querySelector(".nickname-display").innerHTML = `Logged in as ${nickname}`; 
     $('.nickname-choose').animate({'margin-top': `-${window.outerWidth+10}px`}, 300);
     $("#msgSend").toggle(true); // show send msg button
+});
+
+$("#msgContent").on("input", () => {
+    if (typingms == 0) {
+        typingms = 5 * 1000;
+        socket.emit("typing", isTyping());
+    } else {
+    typingms = 5 * 1000;
+    }
 });
 
 });

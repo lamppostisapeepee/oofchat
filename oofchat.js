@@ -50,9 +50,17 @@ io.on('connection', async socket => {
             socket.emit("disconnect reason", "nickname already taken");
             socket.disconnect(true);
         }
+        nickname = escape(nickname);
         socket.nickname = nickname;
         nicknames.push(nickname);
-        
+        socket.on("typing", typing => {
+            if (typeof typing != "boolean") {
+                socket.emit("disconnect reason", "typing is a boolean");
+                socket.disconnect(true);
+            }
+            socket.typing = typing;
+            if (typing) io.emit("chat message", {author: "<u>System</u>", content: `${socket.nickname} is typing...`});
+        });
         socket.on('chat message', msg => {
             if (socket.ratelimits.message != 0) {
                 socket.emit("disconnect reason", "ratelimited[messages]");
