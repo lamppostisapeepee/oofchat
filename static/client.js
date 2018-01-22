@@ -30,6 +30,7 @@ socket.on('chat message', msg => {
     if (msg.author == nickname) content = msg.content;
     if (nickname.toLowerCase() == 'Lucas') {
         msg.displayAuthor = `<span style="color:#33ccff;">${nickname}</span>`;
+        console.log('lucas sent a msg');
     } else {
         msg.displayAuthor = nickname;
     }
