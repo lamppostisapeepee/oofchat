@@ -9,7 +9,8 @@ var ratelimits = {message: 0};
 var colourConfig = {
     "lucas": "#33ccff",
     "toro": "gold",
-    "jellyboi": "#28cc72"
+    "jellyboi": "#28cc72",
+    "ron": "#f44b42"
 }
 
 /**
