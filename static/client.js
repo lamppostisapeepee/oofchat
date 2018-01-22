@@ -44,8 +44,7 @@ socket.on('chat message', msg => {
 });
 let msgQueue = [];
 let msgRatelimit = 0;
-function msgqA() {
-    if (msgQueue.length == 0 || msgRatelimit != 0) return;
+while (msgQueue.length == 0 && msgRatelimit == 0) {
     socket.emit("chat message", msgQueue.shift());
     msgRatelimit = ratelimits.message;
 }
@@ -57,7 +56,7 @@ $("#msgForm").submit(e => {
     e.preventDefault();
     const content = $("#msgContent").val();
     if (content.split(" ").join("") == "") return;
-    msgQueue.push(content); msgqA();
+    msgQueue.push(content);
     $("#msgContent").val("");
 });
 
