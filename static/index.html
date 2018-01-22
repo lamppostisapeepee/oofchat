@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <!-- Favicon, just in case it doesn't auto-load. -->
+        <link rel='shortcut icon' type='image/x-icon' href='/favicon.ico' />
         <!-- All scripts for the site. -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -15,19 +17,25 @@
     </head>
     <body>
         <!-- Nickname Choose Screen -->
-        <div class="nickname-choose nickname-choose-hide">
-            Nickname
-            <input type="text" name="nicknameChoose" id="nicknameChooseInput">
+        <div class="nickname-choose">
+            <div class="title">
+                <h3>oofchat - Choose a nickname</h3>
+            </div>
+            <form id="nickForm">
+                    <input type="text" id="nickContent" maxlength="200" autocomplete="off">
+                    <button class="btn waves-effect waves-light" type="submit">OK</button>
+            </form>
         </div>
         <!-- Page -->
         <div class="title">
             <h3>oofchat</h3>
+            <p class="nickname-display"></p>
         </div>
         <div class="messages">
         </div>
         <div class="sendMessage">
             <form id="msgForm">
-                <input type="text" id="msgContent" maxlength="200">
+                <input type="text" id="msgContent" maxlength="200" autocomplete="off">
                 <button class="btn waves-effect waves-light" type="submit" id="msgSend">Send<i class="material-icons right">send</i></button>
             </form>
         </div>
