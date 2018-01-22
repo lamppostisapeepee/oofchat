@@ -1,4 +1,4 @@
-var socket = io();
+var socket = io("https://oofchat.herokuapp.com");
 /**
  * @type {String}
  */
