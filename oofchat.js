@@ -79,7 +79,7 @@ io.on('connection', async socket => {
             /**
              * @type {String}
              */
-            let content = marked(escape(msg).split(new RegExp(/:[a-z-_]+:/giu)).map(v => emoji.lib[v.slice(1, v.length-2)].char).join(""));
+            let content = marked(escape(msg).split(new RegExp(/:[a-z-_]+:/giu)).map(v => emoji.lib[v.slice(1, v.length-2)] ?emoji.lib[v.slice(1, v.length-2)].char:v ).join(""));
             content = content.slice(3, content.length-5);
             io.emit("chat message", {author: socket.nickname, content, contentNoMarkdown: escape(msg)});
             console.log(`[CHAT] ${socket.nickname}: ${content}`);
