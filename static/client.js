@@ -11,7 +11,8 @@ var colourConfig = {
     "toro": "gold",
     "jellyboi": "#28cc72",
     "ron": "#f44b42",
-    "aura": "#CF87AB"
+    "aura": "#CF87AB",
+    "draem": "#d3d3d3"
 }
 
 /**
@@ -36,13 +37,14 @@ socket.on('chat message', msg => {
     const date = moment().format("(hh:mm:ss)");
     let content = msg.content.split("@"+nickname).join(`<strong class="msgMention">@${nickname}</strong>`);
     if (msg.author == nickname) content = msg.content;
-    if (colourConfig.hasOwnProperty(nickname.toLowerCase())) {
-        msg.displayAuthor = `<span style="color:${colourConfig[nickname.toLowerCase()]};">${nickname}</span>`;
+    if (colourConfig[msg.author.toLowerCase()]) {
+        msg.displayAuthor = `<span style="color:${colourConfig[msg.author.toLowerCase()]};">${msg.author}</span>`;
     } else {
-        msg.displayAuthor = nickname;
+        msg.displayAuthor = msg.author;
     }
     $(".messages").append(`<p class="message message${msgStyle?"A":"B"}">${date} <strong>${msg.displayAuthor} </strong>${content}</p>`);
     msgStyle = !msgStyle;
+    $("html, body").animate({ scrollTop: $(document).height() }, 1000);
     if (msg.content.includes("@"+nickname) && msg.author != nickname) {
         if (!("Notification" in window)) return; // browser does not support notific
         if (Notification.permission == "granted") {
