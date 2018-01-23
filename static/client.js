@@ -10,7 +10,8 @@ var colourConfig = {
     "lucas": "#33ccff",
     "toro": "gold",
     "jellyboi": "#28cc72",
-    "ron": "#f44b42"
+    "ron": "#f44b42",
+    "aura": "#CF87AB"
 }
 
 /**
