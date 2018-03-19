@@ -3,6 +3,7 @@ var socket = io();
  * @type {String}
  */
 var nickname;
+// hello this is a random contribution by me bc im testing poulkl rewquies
 var msgStyle = false;
 var typingms = 0;
 var ratelimits = {message: 0};
