@@ -6,14 +6,16 @@ var nickname;
 var msgStyle = false;
 var typingms = 0;
 var ratelimits = {message: 0};
+// This determines special name colours.
 var colourConfig = {
     "lucas": "#33ccff",
     "toro": "gold",
     "jellyboi": "#28cc72",
     "ron": "#f44b42",
     "aura": "#CF87AB",
-    "draem": "#d3d3d3"
-}
+    "draem": "#d3d3d3",
+    "peepee": "#8d00a3"
+};
 
 /**
  * Set self nickname, can only be used once per session.
